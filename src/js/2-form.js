@@ -7,9 +7,9 @@ const feedback = document.querySelector('.feedback-form');
 
 const key = 'feedback-form-state';
 
-const data = JSON.parse(localStorage.getItem(storageKey));
-if (savedData) {
-  formData = { ...formData, ...savedData };
+const data = JSON.parse(localStorage.getItem(key));
+if (data) {
+  formData = { ...formData, ...data };
   feedback.elements.email.value = formData.email;
   feedback.elements.message.value = formData.message;
 }
@@ -18,17 +18,17 @@ feedback.addEventListener('input', (event) => {
     const { name, value } = event.target;
     if (name in formData) {
       formData[name] = value;
-      localStorage.setItem(storageKey, JSON.stringify(formData));
+      localStorage.setItem(key, JSON.stringify(formData));
     }
 });
   
 feedback.addEventListener('submit', (event) => {
     event.preventDefault();
     if (event.target.email.value === '' || event.target.message.value === '') {
-        alert("Fill please all fields");
+        alert("Будь ласка, заповніть всі поля.");
         return;
     }
     console.log(formData);
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem(key);
     feedback.reset();
 })
